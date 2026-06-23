@@ -1,4 +1,8 @@
-typedef int ListEntry;
+#include<string>
+#include "Livro.h"
+using namespace std;
+
+typedef Livro ListEntry;
 class OrderedList{
     public:
         OrderedList();
@@ -7,7 +11,7 @@ class OrderedList{
         ListEntry remove(ListEntry x);
         bool full();
         bool empty();
-        int search(int x);
+        int search(ListEntry x);
         void clear();
         int size();
     private:

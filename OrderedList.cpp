@@ -1,5 +1,5 @@
 #include "OrderedList.h"
-#include<iostream>
+#include <iostream>
 using namespace std;
 OrderedList::OrderedList(){
     count = 0;
@@ -14,7 +14,7 @@ void OrderedList::insert(ListEntry x){
         abort();
     }
     i = 1;
-    while(i <= count && x > entry[i]){
+    while(i <= count && x.ISBN > entry[i].ISBN){
         i++;
     }
     for(j = count; j >= i; j--){
@@ -44,18 +44,18 @@ bool OrderedList::empty(){
 bool OrderedList::full(){
     return (count == MaxList);
 }
-int OrderedList::search(int x){
+int OrderedList::search(ListEntry x){
     int m, L = 1, R = count;
     while(L < R){
         m = (R + L)/2;
-        if(entry[m] < x){
+        if(entry[m].ISBN < x.ISBN){
             L = m + 1;
         }
         else{
             R = m;
         }
     }
-    return (entry[R] != x ? 0 : R);
+    return (entry[R].ISBN != x.ISBN ? 0 : R);
 }
 void OrderedList::clear(){
     count = 0;

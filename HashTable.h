@@ -1,13 +1,8 @@
-#include<string.h>
-struct Livro{
-    int ISBN;
-    string titulo;
-    string autor;
-    string editora;
-    string genero;
-    int ano;
-};
-typedef int HashEntry;
+#include<string>
+#include "Livro.h"
+using namespace std;
+
+typedef Livro HashEntry;
 typedef int HashKey;
 class HashTable{
     public:
