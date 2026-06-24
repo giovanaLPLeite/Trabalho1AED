@@ -11,7 +11,7 @@ class OrderedList{
         void remove(ListEntry x);
         bool full();
         bool empty();
-        int search(ListEntry x);
+        int search(int x);
         void clear();
         int size();
     private:

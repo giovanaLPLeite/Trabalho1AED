@@ -58,70 +58,36 @@ int main(){
                 break;
             }
             case 3:{ 
-                Livro l;
+                int l;
                 cout << "Digite o código ISBN: ";
-                cin >> l.ISBN;
-                cout << "Digite o título: ";
-                cin.ignore();
-                getline(cin, l.titulo);
-                cout << "Digite o(a) autor(a): ";
-                cin.ignore();
-                getline(cin, l.autor);
-                cout << "Digite a editora: ";
-                cin.ignore();
-                getline(cin, l.editora);
-                cout << "Digite o ano de publicação: ";
-                cin >> l.ano;
+                cin >> l;
                 if(lista.search(l) == 0){
                     cout << "item não encontrado!" << endl;
                 }
                 else{
                     cout << "item encontrado na posição " << lista.search(l) << endl;
                 }
-                
                 break;
             }
             case 4:{ 
-                Livro l;
+                int l;
                 cout << "Digite o código ISBN: ";
-                cin >> l.ISBN;
-                cout << "Digite o título: ";
-                cin.ignore();
-                getline(cin, l.titulo);
-                cout << "Digite o(a) autor(a): ";
-                cin.ignore();
-                getline(cin, l.autor);
-                cout << "Digite a editora: ";
-                cin.ignore();
-                getline(cin, l.editora);
-                cout << "Digite o ano de publicação: ";
-                cin >> l.ano;
+                cin >> l;
                 if(tree.search(l) == 0){
                     cout << "Livro não encontrado!" << endl;
                 }
                 else{
                     cout << "Livro encontrado!" << endl;
                 }
-                
                 break;
             }
             case 5:{ 
                 Livro l;
+                int k;
                 cout << "Digite o código ISBN: ";
-                cin >> l.ISBN;
-                cout << "Digite o título: ";
-                cin.ignore();
-                getline(cin, l.titulo);
-                cout << "Digite o(a) autor(a): ";
-                cin.ignore();
-                getline(cin, l.autor);
-                cout << "Digite a editora: ";
-                cin.ignore();
-                getline(cin, l.editora);
-                cout << "Digite o ano de publicação: ";
-                cin >> l.ano;
-                if(hash.search(l.ISBN, l) != -1){
-                    cout << "Livro encontrado na posição " <<  hash.search(l.ISBN, l) << endl;
+                cin >> k;
+                if(hash.search(k, l) != -1){
+                    cout << "Livro encontrado na posição " <<  hash.search(k, l) << endl;
                 }
                 else{
                     cout << "Livro não encontrado!" << endl;

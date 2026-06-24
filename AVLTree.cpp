@@ -28,18 +28,18 @@ void AVLTree::clear(TreePointer &t){
     }
 }
 
-bool AVLTree::search(TreeEntry x){
+bool AVLTree::search(int x){
     return rSearch(x, root);
 }  
 
-bool AVLTree::rSearch(TreeEntry x, TreePointer t) {
+bool AVLTree::rSearch(int x, TreePointer t) {
     if (t == NULL){
         return false;
     } 
-    if (x.ISBN < t->entry.ISBN){
+    if (x < t->entry.ISBN){
         return rSearch(x, t->leftNode);
     }  
-    if (x.ISBN > t->entry.ISBN){
+    if (x > t->entry.ISBN){
         return rSearch(x, t->rightNode); 
     } 
     return true; 

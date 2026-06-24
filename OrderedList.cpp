@@ -4,9 +4,11 @@ using namespace std;
 OrderedList::OrderedList(){
     count = 0;
 }
+
 OrderedList::~OrderedList(){
     cout << "Lista Ordenada destruída" << endl;
 }
+
 void OrderedList::insert(ListEntry x){
     int i, j;
     if(full()){
@@ -23,13 +25,14 @@ void OrderedList::insert(ListEntry x){
     entry[i] = x;
     count++;
 }
+
 void OrderedList::remove(ListEntry x){
     int i, p;
     if(empty()){
         cout << "Lista Vazia" << endl;
         abort();
     }
-    p = search(x);
+    p = search(x.ISBN);
     if(p == 0){
         cout << "elemento não encontrado" << endl;
         abort();
@@ -40,28 +43,33 @@ void OrderedList::remove(ListEntry x){
     count--;
     cout << "elemento removido da lista ordenada!" << endl;
 }
+
 bool OrderedList::empty(){
     return(count == 0);
 }
+
 bool OrderedList::full(){
     return (count == MaxList);
 }
-int OrderedList::search(ListEntry x){
+
+int OrderedList::search(int x){
     int m, L = 1, R = count;
     while(L < R){
         m = (R + L)/2;
-        if(entry[m].ISBN < x.ISBN){
+        if(entry[m].ISBN < x){
             L = m + 1;
         }
         else{
             R = m;
         }
     }
-    return (entry[R].ISBN != x.ISBN ? 0 : R);
+    return (entry[R].ISBN != x ? 0 : R);
 }
+
 void OrderedList::clear(){
     count = 0;
 }
+
 int OrderedList::size(){
     return count;
 }

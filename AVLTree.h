@@ -15,7 +15,7 @@ public:
     bool full();                        
     void clear();                       
 
-    bool search(TreeEntry x);           
+    bool search(int x);           
     void insert(TreeEntry x);          
     bool remove(TreeEntry x);          
     
@@ -41,7 +41,7 @@ private:
 
     
     void clear(TreePointer &t);
-    bool rSearch(TreeEntry x, TreePointer t);
+    bool rSearch(int x, TreePointer t);
     
     
     void searchInsert(TreeEntry x, TreePointer &pA, bool &h);
