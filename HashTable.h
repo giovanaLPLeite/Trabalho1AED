@@ -10,24 +10,25 @@ class HashTable{
         ~HashTable();
         bool full();
         bool empty();
+        int size(); 
         float loadFactor();
         int insert(HashEntry x);
         int search(HashKey k, HashEntry &x);
         void remove(HashKey k, HashEntry &x);
-        void clear();
-        int size();
+        void clear(); 
+
     private:
-        enum EntryStatus { LIVRE, OCUPADO, REMOVIDO };
     
         struct HashSlot {
             HashEntry entry;
-            EntryStatus status;
+            HashSlot* next;
         };
 
         static const int MaxList = 101;
-        int count;                   
-        HashSlot table[MaxList];
+        int count;   
+
+        HashSlot* table[MaxList];
 
         int hash(HashKey k); 
 };
-//nota: rever a parte privada
+

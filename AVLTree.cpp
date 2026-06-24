@@ -2,19 +2,24 @@
 AVLTree::AVLTree(){
     root = NULL;
 }                         
+
 AVLTree::~AVLTree(){
     clear();
 }
+
 bool AVLTree::empty(){
     return root == NULL;
 }  
+
 bool AVLTree::full(){
     return false;
 }
+
 void AVLTree::clear(){
     clear(root);
     root = NULL;
 }  
+
 void AVLTree::clear(TreePointer &t){
     if(t != NULL){
         clear((*t).leftNode);
@@ -22,32 +27,36 @@ void AVLTree::clear(TreePointer &t){
         delete t;
     }
 }
+
 bool AVLTree::search(TreeEntry x){
     return rSearch(x, root);
 }  
+
 bool AVLTree::rSearch(TreeEntry x, TreePointer t) {
     if (t == NULL){
         return false;
     } 
-    if (x < t->entry){
+    if (x.ISBN < t->entry.ISBN){
         return rSearch(x, t->leftNode);
     }  
-    if (x > t->entry){
+    if (x.ISBN > t->entry.ISBN){
         return rSearch(x, t->rightNode); 
     } 
     return true; 
 }
+
 void AVLTree::insert(TreeEntry x){
     bool h = false;
     searchInsert(x, root, h);
 } 
+
 void AVLTree::searchInsert(TreeEntry x, TreePointer &pA, bool &h) {
     TreePointer pB, pC;
     if (pA == NULL){ 
         pA = new TreeNode{x, 1, 0, NULL, NULL};
         h = true; 
     } 
-    else if (x < pA->entry) {
+    else if (x.ISBN < pA->entry.ISBN) {
         searchInsert(x, pA->leftNode, h);
         if(h){
             switch(pA->bal){
@@ -92,7 +101,7 @@ void AVLTree::searchInsert(TreeEntry x, TreePointer &pA, bool &h) {
             }
         }
     } 
-    else if(x > pA->entry){
+    else if(x.ISBN > pA->entry.ISBN){
         searchInsert(x, pA->rightNode, h);
         if (h){
             switch(pA->bal){
@@ -140,22 +149,24 @@ void AVLTree::searchInsert(TreeEntry x, TreePointer &pA, bool &h) {
         pA->count++;
     }
 }
+
 bool AVLTree::remove(TreeEntry x){
     bool h = false;
     return remove(x, root, h);
 } 
+
 bool AVLTree::remove(TreeEntry x, TreePointer &p, bool &h) {
     TreePointer q;
     bool result;
     if (p == NULL) return false;
 
-    if (x < p->entry) {
+    if (x.ISBN < p->entry.ISBN) {
         result = remove(x, p->leftNode, h);
         if (h){
             balanceL(p, h);
         }
     } 
-    else if(x > p->entry){
+    else if(x.ISBN > p->entry.ISBN){
         result = remove(x, p->rightNode, h);
         if(h){
             balanceR(p, h);
@@ -182,6 +193,7 @@ bool AVLTree::remove(TreeEntry x, TreePointer &p, bool &h) {
     }
     return result;
 }
+
 void AVLTree::removeMin(TreePointer &q, TreePointer &r, bool &h) {
     if (r->leftNode != NULL) {
         removeMin(q, r->leftNode, h);
@@ -197,6 +209,7 @@ void AVLTree::removeMin(TreePointer &q, TreePointer &r, bool &h) {
         h = true;
     }
 }
+
 void AVLTree::balanceL(TreePointer &pA, bool &h) {
     TreePointer pB, pC;
     int balB, balC;
@@ -249,6 +262,7 @@ void AVLTree::balanceL(TreePointer &pA, bool &h) {
             }
     }
 }
+
 void AVLTree::balanceR(TreePointer &pA, bool &h) {
     TreePointer pB, pC;
     int balB, balC;
@@ -306,47 +320,56 @@ void AVLTree::preOrder(){
     preOrder(root); 
     cout << endl;
 }
+
 void AVLTree::preOrder(TreePointer t) {
     if (t != NULL){ 
-        cout << t->entry << " "; 
+        cout << t->entry.titulo << " "; 
         preOrder(t->leftNode); 
         preOrder(t->rightNode); 
     }
 }
+
 void AVLTree::inOrder(){
     inOrder(root); 
     cout << endl;
 }
+
 void AVLTree::inOrder(TreePointer t) {
     if (t != NULL){ 
         inOrder(t->leftNode); 
-        cout << t->entry << " "; 
+        cout << t->entry.titulo << " "; 
         inOrder(t->rightNode); 
     }
 }
+
 void AVLTree::postOrder(){
     postOrder(root); 
     cout << endl;
 }
+
 void AVLTree::postOrder(TreePointer t) {
     if (t != NULL){
         postOrder(t->leftNode); 
         postOrder(t->rightNode); 
-        cout << t->entry << " "; 
+        cout << t->entry.titulo << " "; 
     }
 }
+
 int AVLTree::nodes(){
     return nodes(root);
 }
+
 int AVLTree::nodes(TreePointer t){
     if (t == NULL){
         return 0;
     }
     return 1 + nodes(t->leftNode) + nodes(t->rightNode);
 }
+
 int AVLTree::height(){
     return height(root);
 }  
+
 int AVLTree::height(TreePointer t) {
     if (t == NULL){
         return -1;
@@ -354,16 +377,18 @@ int AVLTree::height(TreePointer t) {
     int L = height(t->leftNode), R = height(t->rightNode);
     return 1 + (L > R ? L : R);
 }
+
 void AVLTree::print(){
     print(root, 0);
 }  
+
 void AVLTree::print(TreePointer t, int s) {
     if (t != NULL){
         print(t->rightNode, s + 3);
         for (int i = 0; i < s; i++){
             cout << " ";
         }
-        cout << t->entry << "(" << (t->bal > 0 ? "+" : "") << t->bal << ")" << endl;
+        cout << t->entry.titulo << "(" << (t->bal > 0 ? "+" : "") << t->bal << ")" << endl;
         print(t->leftNode, s + 3);
     }
 }

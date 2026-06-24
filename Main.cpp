@@ -12,7 +12,7 @@ int main(){
 
     while(true){
         int op;
-        cout << "1. Cadastrar um livro\n2. Remover um livro do catálogo\n 3. Buscar Livro por Lista\n4. Buscar livro por AVLTree\n 5. Buscar livro por HashTable\n 6. Sair\nEscolha uma opção: " << endl;
+        cout << "1. Cadastrar um livro\n2. Remover um livro do catálogo\n3. Buscar Livro por Lista\n4. Buscar livro por AVLTree\n5. Buscar livro por HashTable\n6. Sair\nEscolha uma opção: " << endl;
         cin >> op;
         switch(op){
             case 1:{
@@ -51,7 +51,9 @@ int main(){
                 cout << "Digite o ano de publicação: ";
                 cin >> l.ano;
                 lista.remove(l);
-                tree.remove(l);
+                if(tree.remove(l) == 1){
+                    cout << "elemento removido da árvore!" << endl;
+                }
                 hash.remove(l.ISBN, l);
                 break;
             }
@@ -70,7 +72,13 @@ int main(){
                 getline(cin, l.editora);
                 cout << "Digite o ano de publicação: ";
                 cin >> l.ano;
-                lista.search(l);
+                if(lista.search(l) == 0){
+                    cout << "item não encontrado!" << endl;
+                }
+                else{
+                    cout << "item encontrado na posição " << lista.search(l) << endl;
+                }
+                
                 break;
             }
             case 4:{ 
@@ -88,7 +96,13 @@ int main(){
                 getline(cin, l.editora);
                 cout << "Digite o ano de publicação: ";
                 cin >> l.ano;
-                tree.search(l);
+                if(tree.search(l) == 0){
+                    cout << "Livro não encontrado!" << endl;
+                }
+                else{
+                    cout << "Livro encontrado!" << endl;
+                }
+                
                 break;
             }
             case 5:{ 
@@ -106,7 +120,12 @@ int main(){
                 getline(cin, l.editora);
                 cout << "Digite o ano de publicação: ";
                 cin >> l.ano;
-                hash.search(l.ISBN, l);
+                if(hash.search(l.ISBN, l) != -1){
+                    cout << "Livro encontrado na posição " <<  hash.search(l.ISBN, l) << endl;
+                }
+                else{
+                    cout << "Livro não encontrado!" << endl;
+                }
                 break;
             }
             case 6:

@@ -23,7 +23,7 @@ void OrderedList::insert(ListEntry x){
     entry[i] = x;
     count++;
 }
-ListEntry OrderedList::remove(ListEntry x){
+void OrderedList::remove(ListEntry x){
     int i, p;
     if(empty()){
         cout << "Lista Vazia" << endl;
@@ -31,12 +31,14 @@ ListEntry OrderedList::remove(ListEntry x){
     }
     p = search(x);
     if(p == 0){
-        return;
+        cout << "elemento não encontrado" << endl;
+        abort();
     }
     for(i = p; i < count; i++){
         entry[i] = entry[i+1];
     }
     count--;
+    cout << "elemento removido da lista ordenada!" << endl;
 }
 bool OrderedList::empty(){
     return(count == 0);

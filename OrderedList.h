@@ -8,7 +8,7 @@ class OrderedList{
         OrderedList();
         ~OrderedList();
         void insert(ListEntry x);
-        ListEntry remove(ListEntry x);
+        void remove(ListEntry x);
         bool full();
         bool empty();
         int search(ListEntry x);
