@@ -1,4 +1,6 @@
 #include "AVLTree.h"
+#include <iostream>
+
 AVLTree::AVLTree(){
     root = NULL;
 }                         
@@ -28,20 +30,24 @@ void AVLTree::clear(TreePointer &t){
     }
 }
 
-bool AVLTree::search(int x){
-    return rSearch(x, root);
+bool AVLTree::search(int x, Livro &l, int &consultas){
+    return rSearch(x, root, l, consultas);
 }  
 
-bool AVLTree::rSearch(int x, TreePointer t) {
+bool AVLTree::rSearch(int x, TreePointer t, Livro &l, int &consultas) {
+    consultas++;
+
     if (t == NULL){
         return false;
     } 
     if (x < t->entry.ISBN){
-        return rSearch(x, t->leftNode);
+        return rSearch(x, t->leftNode, l, consultas);
     }  
     if (x > t->entry.ISBN){
-        return rSearch(x, t->rightNode); 
+        return rSearch(x, t->rightNode, l, consultas); 
     } 
+    
+    l=t->entry;
     return true; 
 }
 

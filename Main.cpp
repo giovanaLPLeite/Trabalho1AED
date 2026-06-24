@@ -1,101 +1,177 @@
 #include<iostream>
+#include <cstdlib>
 #include "OrderedList.h"
 #include "AVLTree.h"
 #include "HashTable.h"
 #include "Livro.h"
 using namespace std;
 
+void limparTela() {
+    system("cls");
+}
+
+void aguardarEntrada() {
+    cout << "\nPressione ENTER para continuar...";
+    cin.ignore();
+    cin.get();
+}
+
+void exibirLivro(Livro l){
+    cout<<"\n---------------------------------------"<<endl;
+    cout<<"Informacoes do livro buscado:"<<endl;
+    cout<<"Titulo: "<<l.titulo<<endl;
+    cout<<"Autor: "<<l.autor<<endl;
+    cout<<"Editora: "<<l.editora<<endl;
+    cout<<"Genero: "<<l.genero<<endl;
+    cout<<"Ano: "<<l.ano<<endl;
+    cout<<"---------------------------------------"<<endl;
+}
+
+void printTitle(){
+    cout<<"======================================"<<endl;
+    cout<<"Gerenciamento de Acervo de Biblioteca"<<endl;
+    cout<<"======================================"<<endl;
+    cout<<endl;
+}
+
+void popular(int n, HashTable &hash, OrderedList &lista, AVLTree &tree){
+    for(int i=0; i<n; i++){
+        Livro novoLivro;
+        novoLivro.ISBN=1000+i;
+        novoLivro.titulo="titulo " + to_string(i);
+        novoLivro.autor="autor " + to_string(i);
+        novoLivro.editora="editora " + to_string(i);
+        novoLivro.genero="genero " + to_string(i);
+        novoLivro.ano=1;
+
+        lista.insert(novoLivro);
+        tree.insert(novoLivro);
+        hash.insert(novoLivro);
+    }
+}
+
 int main(){
     OrderedList lista;
     AVLTree tree;
     HashTable hash;
 
+    //popular(500, hash, lista, tree);
+
     while(true){
         int op;
-        cout << "1. Cadastrar um livro\n2. Remover um livro do catálogo\n3. Buscar Livro por Lista\n4. Buscar livro por AVLTree\n5. Buscar livro por HashTable\n6. Sair\nEscolha uma opção: " << endl;
+        limparTela();
+        printTitle();
+        cout << "[1] Cadastrar um livro\n[2] Remover um livro do catalogo\n[3] Buscar Livro por Lista\n[4] Buscar livro por AVLTree\n[5] Buscar livro por HashTable\n[6] Sair\n\nEscolha uma opcao: ";
         cin >> op;
         switch(op){
             case 1:{
+                limparTela();
+                printTitle();
                 Livro l;
-                cout << "Digite o código ISBN: ";
+                cout << "Digite o codigo ISBN: ";
                 cin >> l.ISBN;
-                cout << "Digite o título: ";
+                cout << "Digite o titulo: ";
                 cin.ignore();
                 getline(cin, l.titulo);
                 cout << "Digite o(a) autor(a): ";
-                cin.ignore();
                 getline(cin, l.autor);
                 cout << "Digite a editora: ";
-                cin.ignore();
                 getline(cin, l.editora);
-                cout << "Digite o ano de publicação: ";
+                cout << "Digite o genero: ";
+                getline(cin, l.genero);
+                cout << "Digite o ano de publicacao: ";
                 cin >> l.ano;
                 lista.insert(l);
                 tree.insert(l);
                 hash.insert(l);
+                aguardarEntrada();
                 break;
             }
             case 2:{ 
+                limparTela();
+                printTitle();
                 Livro l;
-                cout << "Digite o código ISBN: ";
+                cout << "Digite o codigo ISBN: "<<endl;;
                 cin >> l.ISBN;
-                cout << "Digite o título: ";
-                cin.ignore();
-                getline(cin, l.titulo);
-                cout << "Digite o(a) autor(a): ";
-                cin.ignore();
-                getline(cin, l.autor);
-                cout << "Digite a editora: ";
-                cin.ignore();
-                getline(cin, l.editora);
-                cout << "Digite o ano de publicação: ";
-                cin >> l.ano;
-                lista.remove(l);
-                if(tree.remove(l) == 1){
-                    cout << "elemento removido da árvore!" << endl;
+                if(lista.remove(l)==true && tree.remove(l) == true && hash.remove(l.ISBN, l) == true){
+
+                    cout <<"\n-------------------------------------" << endl;
+                    cout << "Livro removido do acervo." << endl;
+                    cout <<"-------------------------------------" <<endl;
                 }
-                hash.remove(l.ISBN, l);
+                else{
+                    cout <<"\n-------------------------------------" << endl;
+                    cout<<"Livro nao esta presente no acervo.";
+                    cout <<"-------------------------------------" <<endl;
+                }
+                aguardarEntrada();
                 break;
             }
             case 3:{ 
-                int l;
-                cout << "Digite o código ISBN: ";
-                cin >> l;
-                if(lista.search(l) == 0){
-                    cout << "item não encontrado!" << endl;
+                limparTela();
+                printTitle();
+                Livro l;
+                int consultas;
+                int ISBN;
+                cout << "Digite o codigo ISBN: ";
+                cin >> ISBN;
+                if(lista.search(ISBN, l, consultas) == 0){
+                    cout <<"\n-------------------------------------" << endl;
+                    cout <<"Livro nao foi encontrado no acervo!" << endl;
+                    cout <<"Foram feitas "<<consultas<<" consultas."<<endl;
+                    cout <<"-------------------------------------" << endl;
                 }
                 else{
-                    cout << "item encontrado na posição " << lista.search(l) << endl;
+                    cout << "\nLivro encontrado na posicao " << lista.search(ISBN, l, consultas)<<" da lista.";
+                    exibirLivro(l);
                 }
+                aguardarEntrada();
                 break;
             }
             case 4:{ 
-                int l;
-                cout << "Digite o código ISBN: ";
-                cin >> l;
-                if(tree.search(l) == 0){
-                    cout << "Livro não encontrado!" << endl;
+                limparTela();
+                printTitle();
+                Livro l;
+                int consultas;
+                int ISBN;
+                cout << "Digite o codigo ISBN: ";
+                cin >> ISBN;
+                if(tree.search(ISBN, l, consultas) == 0){
+                    cout <<"\n-------------------------------------" << endl;
+                    cout <<"Livro nao foi encontrado no acervo!" << endl;
+                    cout <<"Foram feitas "<<consultas<<" consultas."<<endl;
+                    cout <<"-------------------------------------" << endl;
                 }
                 else{
-                    cout << "Livro encontrado!" << endl;
+                    cout << "\nLivro encontrado!";
+                    exibirLivro(l);
                 }
+                aguardarEntrada();
                 break;
             }
             case 5:{ 
+                limparTela();
+                printTitle();
+                int consultas;
                 Livro l;
                 int k;
-                cout << "Digite o código ISBN: ";
+                cout << "Digite o codigo ISBN: ";
                 cin >> k;
-                if(hash.search(k, l) != -1){
-                    cout << "Livro encontrado na posição " <<  hash.search(k, l) << endl;
+                if(hash.search(k, l, consultas) != -1){
+                    cout << "\nLivro encontrado!";
+                    exibirLivro(l);
                 }
                 else{
-                    cout << "Livro não encontrado!" << endl;
+                    cout <<"\n-------------------------------------" << endl;
+                    cout <<"Livro nao foi encontrado no acervo!" << endl;
+                    cout <<"Foram feitas "<<consultas<<" consultas."<<endl;
+                    cout <<"-------------------------------------" << endl;
                 }
+                aguardarEntrada();
                 break;
             }
             case 6:
-                return false;
+                return 0;
                 break;
         }
     }

@@ -1,5 +1,5 @@
 #ifndef AVLTREE_H
-#define AVLtree_H
+#define AVLTree_H
 
 #include <iostream>
 #include "Livro.h"
@@ -15,7 +15,7 @@ public:
     bool full();                        
     void clear();                       
 
-    bool search(int x);           
+    bool search(int x, Livro &l, int &consultas);           
     void insert(TreeEntry x);          
     bool remove(TreeEntry x);          
     
@@ -41,7 +41,7 @@ private:
 
     
     void clear(TreePointer &t);
-    bool rSearch(int x, TreePointer t);
+    bool rSearch(int x, TreePointer t, Livro &l, int &consultas);
     
     
     void searchInsert(TreeEntry x, TreePointer &pA, bool &h);

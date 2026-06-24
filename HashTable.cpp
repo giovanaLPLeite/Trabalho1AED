@@ -58,11 +58,14 @@ int HashTable::insert(HashEntry x){
     return index;
 }
 
-int HashTable::search(HashKey k, HashEntry &x){
+int HashTable::search(HashKey k, HashEntry &x, int &consultas){
     int index = hash(k);
     HashSlot* current = table[index];
 
+    consultas = 0;
+
     while(current!=NULL){
+        consultas++;
         if(current->entry.ISBN==k){
             x=current->entry;
             return index;
@@ -72,7 +75,7 @@ int HashTable::search(HashKey k, HashEntry &x){
     return -1; //não foi encontrado
 }
 
-void HashTable::remove(HashKey k, HashEntry &x){
+bool HashTable::remove(HashKey k, HashEntry &x){
     int index = hash(k);
     HashSlot* current = table[index];
     HashSlot* previous = NULL;
@@ -89,9 +92,11 @@ void HashTable::remove(HashKey k, HashEntry &x){
 
             delete current;
             count--;
-            return;
+            return true;
         }
         previous=current;
         current=current->next;
     }
+
+    return false;
 }

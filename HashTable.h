@@ -13,8 +13,8 @@ class HashTable{
         int size(); 
         float loadFactor();
         int insert(HashEntry x);
-        int search(HashKey k, HashEntry &x);
-        void remove(HashKey k, HashEntry &x);
+        int search(HashKey k, HashEntry &x, int &consultas);
+        bool remove(HashKey k, HashEntry &x);
         void clear(); 
 
     private:
